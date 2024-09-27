@@ -1,49 +1,39 @@
 {
-	"env": {
-		"vex_compilerPath": "${config:vexrobotics.vexcode.Cpp.Toolchain.Path}\\clang\\bin\\clang",
-		"vex_sdkPath": "${config:vexrobotics.vexcode.Cpp.Sdk.Home}\\V5\\V5_20240223_11_00_00\\vexv5",
-		"vex_gcc": "${vex_sdkPath}/gcc/include/c++/4.9.3",
-		"vex_sdkIncludes": [
-			"${vex_sdkPath}/clang/8.0.0/include/**",
-			"${vex_gcc}/**",
-			"${vex_gcc}/arm-none-eabi/thumb",
-			"${vex_sdkPath}/gcc/include",
-			"${vex_sdkPath}/include/**",
-			"${workspaceFolder}/include/**",
-			"${workspaceFolder}/src/**"
-		]
-	},
-	"configurations": [
-		{
-			"name": "Win32",
-			"includePath": [
-				"${vex_sdkIncludes}"
-			],
-			"compilerPath": "${vex_compilerPath}",
-			"cStandard": "gnu99",
-			"cppStandard": "gnu++11",
-			"intelliSenseMode": "windows-clang-x86"
-		},
-		{
-			"name": "Mac",
-			"includePath": [
-				"${vex_sdkIncludes}"
-			],
-			"compilerPath": "${vex_compilerPath}",
-			"cStandard": "gnu99",
-			"cppStandard": "gnu++11",
-			"intelliSenseMode": "macos-clang-x86"
-		},
-		{
-			"name": "Linux",
-			"includePath": [
-				"${vex_sdkIncludes}"
-			],
-			"compilerPath": "",
-			"cStandard": "gnu99",
-			"cppStandard": "gnu++11",
-			"intelliSenseMode": "linux-clang-x86"
-		}
-	],
-	"version": 4
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/src",
+                "${config:vexrobotics.vexcode.Cpp.Sdk.Home}/V5/V5_20240223_11_00_00/vexv5/gcc/include/c++/4.9.3",
+                "${config:vexrobotics.vexcode.Cpp.Sdk.Home}/V5/V5_20240223_11_00_00/vexv5/gcc/include",
+                "${config:vexrobotics.vexcode.Cpp.Sdk.Home}/V5/V5_20240223_11_00_00/vexv5/include",
+                "/usr/include",  // System headers
+                "/usr/include/c++/11",  // Path for GCC 11 C++ standard library
+                "/usr/include/x86_64-linux-gnu/c++/11", // Architecture-specific C++ headers
+                "/usr/lib/gcc/x86_64-linux-gnu/11/include", // GCC 11 headers
+                "/usr/include/x86_64-linux-gnu" // Add this line for system-specific headers (wordsize.h)
+            ],
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "gnu99",
+            "cppStandard": "gnu++11",
+            "intelliSenseMode": "linux-gcc-x86",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}/include",
+                    "${workspaceFolder}/src",
+                    "/usr/include",
+                    "/usr/include/c++/11",
+					"/usr/include/x86_64-linux-gnu",
+                    "/usr/include/x86_64-linux-gnu/c++/11",
+                    "/usr/lib/gcc/x86_64-linux-gnu/11/include",
+                    "/usr/include/x86_64-linux-gnu" // Add this line here as well
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
 }

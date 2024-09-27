@@ -2,12 +2,14 @@
 
 #include <cmath>
 #include <iostream>
+#include <cstdlib>
 
 #include "parameters.h"
 #include "robot-config.h"
 #include "vex.h"
-using namespace vex;
-using namespace std;
+#include <stdlib.h>
+//using namespace vex;
+//using namespace std;
 
 /// @brief 底盘构造函数
 Chassis::Chassis() {
@@ -22,7 +24,7 @@ Chassis::Chassis() {
 
 /// @brief 【换算函数】将机器人坐标系下的速度转换为左右侧轮子速度
 void Chassis::calcWheelVel() {
-    double robot_speed = abs(robot_vel);
+    float robot_speed = std::fabs(robot_vel);
     double max_abs_vel = 0;
     double max_abs_wheel_vel = 100;
 

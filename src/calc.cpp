@@ -1,6 +1,7 @@
 #include "calc.h"
 
 #include <cmath>
+#include <stdlib.h>
 
 /**
  * @brief Returns the sign of a given number.
