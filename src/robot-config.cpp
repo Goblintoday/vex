@@ -19,6 +19,9 @@ motor motor_base_r2 = motor(PORT12, ratio6_1, false); //+
 motor motor_base_r3 = motor(PORT1, ratio6_1, true);   //-
 motor motor_base_r4 = motor(PORT20, ratio6_1, true);  //-
 
+//added Motor
+motor motoradd = motor(PORT21, ratio6_1, false);
+
 // IntakerMotor
 motor motor_intaker = motor(PORT19, ratio6_1, false); //+
 

@@ -60,6 +60,26 @@ void intakerControl() {
     }
 }
 
+void motorControl(){
+
+    bool isForward = true;
+
+    if(Controller.ButtonA.pressing() && !Controller.ButtonB.pressing()){
+        if(!isForward){
+            motoradd.spin(vex::directionType::fwd, 100, vex::velocityUnits::rpm);
+            isForward = true;
+        }
+    } else if(!Controller.ButtonA.pressing() && Controller.ButtonB.pressing()){
+        if(isForward){
+            motoradd.spin(vex::directionType::rev, 100, vex::velocityUnits::rpm);
+            isForward = false;
+        }
+    } else {
+        motoradd.stop();
+    }
+    //spin to the corresponding direction as the button pressed, and stop when not pressing
+
+}
 void userControl() {
     modeDisplay('U');
     vex::thread *T = nullptr;
@@ -81,7 +101,9 @@ void userControl() {
         //     Chassis::getInstance()->autoSetRobotVel(0, 0);
         // }
         // // ----------------------------------------------------------------
-
+    
+    //Press A to move forward
+    
         if (is_user_control) {
             // 底盘控制
             baseControl();

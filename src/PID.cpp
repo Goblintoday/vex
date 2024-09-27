@@ -52,8 +52,35 @@ double PID::getOutput() { return output; }
 void PID::update(double input) {
     error_curt = target - input;  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
+    P = kp * error_curt; //propotional control, directly adjust the errors
 
+    //Integral control
+    if (abs(error_curt) < I_range) {
+        I += ki * error_curt;
+    } else {
+        I = 0;
+    }
+    //If the error range is in the acceptable range, increase(or decrease if error_curt < 0) Integral to adjust small errors
+
+    if (I > I_max) {
+        I = I_max;
+    } else if (I < -I_max) {
+        I = -I_max;
+    }
+    //Set a maximum for I, to make sure that it will not have a great increase or decrease when the system is in sudden big errors
+
+    if (!first_time) {
+    D = kd * (error_curt - error_prev) / my_timer.getTime();
+    } else {
+        D = 0;
+        first_time = false;
+    }
+    //If it's not the first update, then update the derivative error control to reduce the error by the error's changing rate
     
+    my_timer.reset();
+    error_prev = error_curt;
+    //update time and error
+
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and
                                         // maintaining a low enough speed
         arrived = true;
@@ -68,7 +95,36 @@ void PosPID::update(Point input) {
     error_curt = err.mod();  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
 
+    P = kp * error_curt; //propotional control, directly adjust the errors
+
+    if (abs(error_curt) < I_range) {
+        I += ki * error_curt;
+    } else {
+        I = 0;
+    }
+    //If the error range is in the acceptable range, increase(or decrease if error_curt < 0) Integral to adjust small errors
+
+    if (I > I_max) {
+        I = I_max;
+    } else if (I < -I_max) {
+        I = -I_max;
+    }
+    //Set a maximum for I, to make sure that it will not have a great increase or decrease when the system is in sudden big errors
+
+    if (!first_time) {
+    D = kd * (error_curt - error_prev) / my_timer.getTime();
+    } else {
+        D = 0;
+        first_time = false;
+    }
+    //If it's not the first update, then update the derivative error control to reduce the error by the error's changing rate
     
+    my_timer.reset();
+    error_prev = error_curt;
+    //update time and error
+
+    //This is similar to PID::update()
+
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and
                                         // maintaining a low enough speed
         arrived = true;
@@ -79,6 +135,36 @@ void PosPID::update(Point input) {
 void DirPID::update(double input) {
     error_curt = degNormalize(target - input);  // calculate current error
     //TODO: calculate the contribution of P, I, D with kp, ki, kd
+
+     P = kp * error_curt; //propotional control, directly adjust the errors
+
+    if (abs(error_curt) < I_range) {
+        I += ki * error_curt;
+    } else {
+        I = 0;
+    }
+    //If the error range is in the acceptable range, increase(or decrease if error_curt < 0) Integral to adjust small errors
+
+    if (I > I_max) {
+        I = I_max;
+    } else if (I < -I_max) {
+        I = -I_max;
+    }
+    //Set a maximum for I, to make sure that it will not have a great increase or decrease when the system is in sudden big errors
+
+    if (!first_time) {
+    D = kd * (error_curt - error_prev) / my_timer.getTime();
+    } else {
+        D = 0;
+        first_time = false;
+    }
+    //If it's not the first update, then update the derivative error control to reduce the error by the error's changing rate
+    
+    my_timer.reset();
+    error_prev = error_curt;
+    //update time and error
+
+    //This is also similar to PID::update()
 
     
     if (abs(error_curt) <= error_tol) {  // Exit when staying in tolerated region and

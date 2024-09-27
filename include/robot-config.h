@@ -19,6 +19,9 @@ extern motor motor_base_r2;
 extern motor motor_base_r3;
 extern motor motor_base_r4;
 
+extern motor motoradd;
+//the added motor with port-21
+
 // 定义intaker电机对象（端口号+转动方向）
 extern motor motor_intaker;
 // 定义Controller对象，用于读取遥控器信息
